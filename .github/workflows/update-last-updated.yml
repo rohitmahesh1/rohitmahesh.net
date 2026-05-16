@@ -1,0 +1,34 @@
+name: Update Last Updated Date
+
+on:
+  push:
+
+permissions:
+  contents: write
+
+jobs:
+  update-date:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Update date in index.html
+        run: |
+          export UPDATED_DATE="$(TZ=America/New_York date +"%B %-d, %Y")"
+          perl -0pi -e 's/<!-- LAST_UPDATED_START -->.*?<!-- LAST_UPDATED_END -->/<!-- LAST_UPDATED_START -->$ENV{UPDATED_DATE}<!-- LAST_UPDATED_END -->/s' index.html
+
+      - name: Commit date update
+        run: |
+          if git diff --quiet -- index.html; then
+            echo "Date is already current."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Update last updated date"
+          git push
