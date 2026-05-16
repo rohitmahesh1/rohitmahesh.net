@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rohit Mahesh</title>
+
+    <style>
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            margin: 24px 18px 72px 18px;
+            max-width: 42em;
+            background-color: #fafafa;
+            color: #111;
+            font-size: 17px;
+            line-height: 1.52;
+        }
+
+        h1 {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 2.6rem;
+            margin: 0 0 0.12em 0;
+            letter-spacing: 0;
+            font-weight: 500;
+        }
+
+        h2 {
+            font-size: 0.88rem;
+            margin-top: 2.6em;
+            padding-top: 0.7em;
+            border-top: 1px solid #d7d7d7;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #555;
+        }
+
+        p {
+            margin: 0.72em 0;
+        }
+
+        a {
+            color: #0645ad;
+            text-decoration: none;
+            border-bottom: 1px dotted #0645ad;
+        }
+
+        a:hover {
+            border-bottom: 1px solid #0645ad;
+        }
+
+        ul {
+            padding-left: 1.2em;
+            margin-top: 0.6em;
+        }
+
+        li {
+            margin-bottom: 0.7em;
+        }
+
+        .links a {
+            margin-right: 10px;
+        }
+
+        .portrait {
+            float: right;
+            width: 155px;
+            margin: 0 0 18px 24px;
+            border-radius: 2px;
+            filter: grayscale(12%);
+        }
+
+        .entry {
+            margin: 1.15em 0;
+        }
+
+        .entry-title {
+            font-weight: 650;
+        }
+
+        .date {
+            color: #6c6c6c;
+            font-size: 0.86rem;
+            margin-top: 0.05em;
+        }
+
+        .mini-links {
+            font-size: 0.9rem;
+        }
+
+        .mini-links a {
+            margin-right: 8px;
+        }
+
+        #last-updated {
+            position: fixed;
+            bottom: 8px;
+            right: 12px;
+            max-width: 28em;
+            font-size: 12px;
+            text-align: right;
+            color: #666;
+        }
+
+        @media only screen and (max-width: 900px) {
+            body {
+                max-width: none;
+                font-size: 16px;
+            }
+
+            .portrait {
+                float: none;
+                display: block;
+                width: 145px;
+                margin: 0.8em 0 1em 0;
+            }
+
+            #last-updated {
+                position: static;
+                text-align: left;
+                margin-top: 3em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <img class="portrait" src="rohit-mahesh.jpg" alt="Photo of Rohit Mahesh">
+
+        <p>hello, i'm</p>
+        <h1>Rohit Mahesh</h1>
+
+        <p>
+            I am a student at Columbia University studying computer science and mathematics.
+        </p>
+
+        <p class="links">
+            <a href="mailto:rm4336@columbia.edu">email</a>
+            <a href="https://github.com/rohitmahesh1">github</a>
+            <a href="https://www.linkedin.com/in/rohit-mahesh-">linkedin</a>
+            <a href="https://x.com/RohitM900">twitter</a>
+        </p>
+
+        <section>
+            <h2>next</h2>
+
+            <div class="entry">
+                <div class="entry-title">Lenovo — AI Experiences Team</div>
+                <div class="date">June–August 2026</div>
+                <p>
+                    This summer, I will join Lenovo's <a href="https://www.lenovo.com/us/en/business-solutions/qira/"> Qira</a> team to build cross-device AI
+                    experiences across Windows and mobile platforms, with a focus on multimodal
+                    interaction, context handoff, and reliable user-facing agent behavior.
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>research</h2>
+
+            <div class="entry">
+                <div class="entry-title">
+                    <a href="https://systemsbiologylab.org/">Sriram Lab</a> — tuberculosis outcome prediction
+                </div>
+                <div class="date">Summer/Fall 2023</div>
+                <p>
+                    I developed a longitudinal medical-imaging pipeline for tuberculosis outcome
+                    prediction, extracting Vision Transformer representations from serial chest
+                    X-rays and modeling temporal disease progression with sequence-level aggregation.
+                </p>
+                <p class="mini-links">
+                    <a href="https://github.com/rohitmahesh1/tuberculosis">code</a>
+                </p>
+            </div>
+
+            <div class="entry">
+                <div class="entry-title">
+                    <a href="https://www.aroralab.com/">AroraLab</a> — computational reproductive biology
+                </div>
+                <div class="date">2023–present</div>
+                <p>
+                    I build machine-learning and scientific-computing tools for quantifying uterine
+                    contractility from microscopy data. My projects include Utero-ViT, a Vision
+                    Transformer model for classifying contractility dynamics, and WaveAtlas, a web
+                    platform for extracting, visualizing, and analyzing wave-propagation features
+                    from high-dimensional biological time series.
+                </p>
+                <p class="mini-links">
+                    <a href="https://github.com/rohitmahesh1/Contractions">Utero-ViT code</a>
+                    <a href="https://atlas.rohitmahesh.net">WaveAtlas site</a>
+                    <a href="https://github.com/rohitmahesh1/WaveAtlas">WaveAtlas code</a>
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>engineering</h2>
+
+            <div class="entry">
+                <div class="entry-title">
+                    <a href="https://www.newhaptics.com/">NewHaptics</a> — Braille display software
+                </div>
+                <div class="date">Summers 2024 and 2025</div>
+                <p>
+                    I developed software for multiline tactile Braille displays, including an
+                    English-to-Braille translation engine, an accessible menu framework for tactile
+                    navigation, and low-latency audio cursor cues iterated with blind co-designers.
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>patents + publications</h2>
+
+            <ul>
+                <li>
+                    Pending patent: <i>Low-cost refreshable Braille display</i>
+                    (US 63/706,318).
+                </li>
+                <li>
+                    <a href="https://academic.oup.com/biolreprod/article/110/6/1175/7666628">
+                        Imaging the dynamics of murine uterine contractions in early pregnancy
+                    </a>.
+                    <i>Biology of Reproduction</i>, 2024.
+                </li>
+                <li>
+                    <a href="https://emerginginvestigators.org/articles/23-187/pdf">
+                        The effects of dysregulated ion channels and vasoconstriction in glioblastoma multiforme
+                    </a>.
+                    <i>Journal of Emerging Investigators</i>, 2025.
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>elsewhere</h2>
+
+            <p>
+                I am also interested in applied security, math competitions, and robotics. In my free time I can be found playing horror video games. 
+            </p>
+        </section>
+    </main>
+
+    <div id="last-updated">
+        Last updated: <!-- LAST_UPDATED_START -->May 16, 2026<!-- LAST_UPDATED_END -->
+    </div>
+</body>
+</html>
