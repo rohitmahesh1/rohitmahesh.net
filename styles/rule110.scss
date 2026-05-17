@@ -1,0 +1,194 @@
+// Source for the right-half Rule 110 hero visual.
+// The row count is intentionally generous; the page clips any extra rows.
+
+$columns:100;
+$rows: 420;
+$cell-size: 6px;
+$tick: 38ms;
+$ink: #161616;
+$origin-x: 0;
+$origin-y: 0;
+$seed-live-cells: 1 6 7 12 18 19 26 35 38 47 48 55 63 68 76 82;
+
+@function seed-row($columns) {
+    $row: ();
+
+    @for $column from 1 through $columns {
+        $row: append($row, if(index($seed-live-cells, $column), 1, 0));
+    }
+
+    @return $row;
+}
+
+@function cell-at($row, $index) {
+    @if $index < 1 or $index > length($row) {
+        @return 0;
+    }
+
+    @return nth($row, $index);
+}
+
+@function rule-110($left, $center, $right) {
+    @if $left == 1 and $center == 1 and $right == 1 {
+        @return 0;
+    }
+
+    @if $left == 1 and $center == 1 and $right == 0 {
+        @return 1;
+    }
+
+    @if $left == 1 and $center == 0 and $right == 1 {
+        @return 1;
+    }
+
+    @if $left == 1 and $center == 0 and $right == 0 {
+        @return 0;
+    }
+
+    @if $left == 0 and $center == 1 and $right == 1 {
+        @return 1;
+    }
+
+    @if $left == 0 and $center == 1 and $right == 0 {
+        @return 1;
+    }
+
+    @if $left == 0 and $center == 0 and $right == 1 {
+        @return 1;
+    }
+
+    @return 0;
+}
+
+@function next-row($row) {
+    $next: ();
+
+    @for $index from 1 through length($row) {
+        $next: append(
+            $next,
+            rule-110(cell-at($row, $index - 1), cell-at($row, $index), cell-at($row, $index + 1))
+        );
+    }
+
+    @return $next;
+}
+
+@function cell-shadow($x, $y) {
+    @return (($x - $origin-x) * $cell-size) (($y - $origin-y) * $cell-size) 0 0 var(--rule110-ink);
+}
+
+@function rule110-shadows($columns, $rows) {
+    $row: seed-row($columns);
+    $shadows: ();
+
+    @for $y from 0 through ($rows - 1) {
+        @for $column from 1 through $columns {
+            $x: $column - 1;
+
+            @if nth($row, $column) == 1 and not ($x == $origin-x and $y == $origin-y) {
+                $shadows: append($shadows, cell-shadow($x, $y), comma);
+            }
+        }
+
+        $row: next-row($row);
+    }
+
+    @return $shadows;
+}
+
+.rule110-wall {
+    --rule110-ink: #{$ink};
+    --rule110-grid: rgba(22, 22, 22, 0.08);
+    --rule110-fade: #fafafa;
+    position: relative;
+    align-self: stretch;
+    min-height: 100vh;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.rule110-wall::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(90deg, rgba(250, 250, 250, 0.98) 0%, rgba(250, 250, 250, 0.42) 18%, rgba(250, 250, 250, 0) 46%),
+        repeating-linear-gradient(90deg, rgba(22, 22, 22, 0.035) 0 1px, transparent 1px 36px);
+    z-index: 0;
+}
+
+.rule110-wall__stage {
+    position: absolute;
+    top: var(--content-top, 24px);
+    bottom: var(--content-bottom, 72px);
+    left: 50%;
+    width: min(#{$columns * $cell-size}, calc(100% - 36px));
+    overflow: hidden;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.rule110-wall__stage::before,
+.rule110-wall__stage::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.rule110-wall__stage::before {
+    background:
+        linear-gradient(to right, var(--rule110-fade), transparent 11%, transparent 88%, var(--rule110-fade)),
+        linear-gradient(to bottom, var(--rule110-fade), transparent 8%, transparent 90%, var(--rule110-fade));
+    z-index: 3;
+}
+
+.rule110-wall__stage::after {
+    background:
+        repeating-linear-gradient(to right, var(--rule110-grid) 0 1px, transparent 1px #{$cell-size}),
+        repeating-linear-gradient(to bottom, var(--rule110-grid) 0 1px, transparent 1px #{$cell-size});
+    opacity: 0.52;
+    z-index: 2;
+}
+
+.rule110-wall__pattern {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: $columns * $cell-size;
+    height: $rows * $cell-size;
+    clip-path: inset(0 0 100% 0);
+    transform: translateX(-50%);
+    animation: rule110-reveal ($rows * $tick) steps($rows, end) 360ms forwards;
+}
+
+.rule110-wall__pattern::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: $cell-size;
+    height: $cell-size;
+    background: var(--rule110-ink);
+    transform: translate($origin-x * $cell-size, $origin-y * $cell-size);
+    box-shadow: rule110-shadows($columns, $rows);
+}
+
+@keyframes rule110-reveal {
+    to {
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .rule110-wall__pattern {
+        animation: none;
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .rule110-wall {
+        display: none;
+    }
+}
