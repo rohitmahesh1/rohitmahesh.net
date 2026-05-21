@@ -1,7 +1,6 @@
-// Source for the right-half Rule 110 hero visual.
-// The row count is intentionally generous; the page clips any extra rows.
+@use "sass:list";
 
-$columns:100;
+$columns: 100;
 $rows: 420;
 $cell-size: 6px;
 $tick: 38ms;
@@ -14,18 +13,22 @@ $seed-live-cells: 1 6 7 12 18 19 26 35 38 47 48 55 63 68 76 82;
     $row: ();
 
     @for $column from 1 through $columns {
-        $row: append($row, if(index($seed-live-cells, $column), 1, 0));
+        @if list.index($seed-live-cells, $column) {
+            $row: list.append($row, 1);
+        } @else {
+            $row: list.append($row, 0);
+        }
     }
 
     @return $row;
 }
 
 @function cell-at($row, $index) {
-    @if $index < 1 or $index > length($row) {
+    @if $index < 1 or $index > list.length($row) {
         @return 0;
     }
 
-    @return nth($row, $index);
+    @return list.nth($row, $index);
 }
 
 @function rule-110($left, $center, $right) {
@@ -63,8 +66,8 @@ $seed-live-cells: 1 6 7 12 18 19 26 35 38 47 48 55 63 68 76 82;
 @function next-row($row) {
     $next: ();
 
-    @for $index from 1 through length($row) {
-        $next: append(
+    @for $index from 1 through list.length($row) {
+        $next: list.append(
             $next,
             rule-110(cell-at($row, $index - 1), cell-at($row, $index), cell-at($row, $index + 1))
         );
@@ -85,8 +88,8 @@ $seed-live-cells: 1 6 7 12 18 19 26 35 38 47 48 55 63 68 76 82;
         @for $column from 1 through $columns {
             $x: $column - 1;
 
-            @if nth($row, $column) == 1 and not ($x == $origin-x and $y == $origin-y) {
-                $shadows: append($shadows, cell-shadow($x, $y), comma);
+            @if list.nth($row, $column) == 1 and not ($x == $origin-x and $y == $origin-y) {
+                $shadows: list.append($shadows, cell-shadow($x, $y), comma);
             }
         }
 
@@ -163,7 +166,7 @@ $seed-live-cells: 1 6 7 12 18 19 26 35 38 47 48 55 63 68 76 82;
     height: $rows * $cell-size;
     clip-path: inset(0 0 100% 0);
     transform: translateX(-50%);
-    animation: rule110-reveal ($rows * $tick) steps($rows, end) 360ms forwards;
+    animation: rule110-reveal ($rows * $tick) steps($rows, end) 360ms 1 forwards;
 }
 
 .rule110-wall__pattern::before {
