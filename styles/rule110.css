@@ -8,6 +8,9 @@
   overflow: hidden;
   isolation: isolate; }
 
+.rule110-wall--mobile {
+  display: none; }
+
 .rule110-wall::before {
   content: "";
   position: absolute;
@@ -70,7 +73,18 @@
     animation: none;
     clip-path: inset(0 0 0 0); } }
 @media only screen and (max-width: 900px) {
-  .rule110-wall {
-    display: none; } }
+  .rule110-wall--desktop {
+    display: none; }
+
+  .rule110-wall--mobile {
+    display: block;
+    min-height: 0;
+    height: clamp(220px, 38vh, 360px);
+    margin: 1.25em 0 1.65em; }
+
+  .rule110-wall--mobile .rule110-wall__stage {
+    top: 0;
+    bottom: 0;
+    width: min(100%, 600px); } }
 
 /*# sourceMappingURL=rule110.css.map */
