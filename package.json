@@ -1,0 +1,10 @@
+{
+  "name": "rohitmahesh.net",
+  "private": true,
+  "scripts": {
+    "build:css": "sass styles/rule110.scss styles/rule110.css"
+  },
+  "devDependencies": {
+    "sass": "^1.99.0"
+  }
+}
