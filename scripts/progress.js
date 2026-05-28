@@ -13,6 +13,28 @@
     let revealTimer = 0;
     let isRunning = false;
 
+    const readState = () => {
+        try {
+            return JSON.parse(localStorage.getItem(storageKey) || "{}");
+        } catch {
+            return {};
+        }
+    };
+
+    const writeState = (state) => {
+        try {
+            localStorage.setItem(storageKey, JSON.stringify(state));
+        } catch {
+        }
+    };
+
+    const clearState = () => {
+        try {
+            localStorage.removeItem(storageKey);
+        } catch {
+        }
+    };
+
     const updateReplayPosition = () => {
         const replay = document.querySelector(".rule110-replay--desktop");
         const stage = document.querySelector(".rule110-wall--desktop .rule110-wall__stage");
@@ -28,10 +50,10 @@
     };
 
     const markComplete = () => {
-        localStorage.setItem(storageKey, JSON.stringify({
+        writeState({
             elapsed: revealTotal,
             done: true,
-        }));
+        });
         updateReplayPosition();
         root.classList.add("rule110-reveal-complete");
         isRunning = false;
@@ -44,10 +66,10 @@
 
         const elapsed = Math.min(revealTotal, startElapsed + performance.now() - pageStartedAt);
 
-        localStorage.setItem(storageKey, JSON.stringify({
+        writeState({
             elapsed,
             done: elapsed >= revealTotal,
-        }));
+        });
     };
 
     const startReveal = (elapsed) => {
@@ -87,7 +109,7 @@
         }
 
         const replay = () => {
-            localStorage.removeItem(storageKey);
+            clearState();
             root.classList.remove("rule110-reveal-complete");
             root.style.setProperty("--rule110-elapsed", "0ms");
             restartAnimation();
@@ -101,18 +123,19 @@
         updateReplayPosition();
     };
 
-    try {
-        const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
+    const saved = readState();
 
-        if (saved.done) {
-            root.classList.add("rule110-reveal-complete");
-        } else {
-            startReveal(Number(saved.elapsed) || 0);
-        }
-    } catch {
-        root.style.removeProperty("--rule110-elapsed");
+    if (saved.done) {
+        root.classList.add("rule110-reveal-complete");
+    } else {
+        startReveal(Number(saved.elapsed) || 0);
     }
 
+    document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "hidden") {
+            save();
+        }
+    });
     window.addEventListener("pagehide", save);
     window.addEventListener("DOMContentLoaded", attachReplay);
     window.addEventListener("load", updateReplayPosition);
