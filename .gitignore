@@ -5,3 +5,5 @@ node_modules/
 dist/
 *.zip
 .sass-cache/
+scripts/measure-rule110-rows.mjs
+scripts/check-layout.mjs
