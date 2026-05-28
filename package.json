@@ -2,7 +2,9 @@
   "name": "rohitmahesh.net",
   "private": true,
   "scripts": {
-    "build:css": "sass styles/rule110.scss styles/rule110.css"
+    "build:css": "sass styles/rule110.scss styles/rule110.css",
+    "test": "npm run test:layout",
+    "test:layout": "node scripts/check-layout.mjs"
   },
   "devDependencies": {
     "sass": "^1.99.0"
