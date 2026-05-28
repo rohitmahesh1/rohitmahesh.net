@@ -3,10 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Rohit Mahesh">
+    <meta name="theme-color" content="#fafafa">
+    <meta property="og:title" content="Rohit Mahesh">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rohitmahesh.net/">
+    <meta property="og:image" content="https://rohitmahesh.net/assets/rohit-mahesh.jpg">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Rohit Mahesh">
     <title>Rohit Mahesh</title>
 
+    <link rel="canonical" href="https://rohitmahesh.net/">
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <script src="scripts/progress.js"></script>
     <link rel="stylesheet" href="styles/rule110.css">
+    <script data-goatcounter="https://rohitmahesh.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 
     <style>
         :root {
@@ -17,6 +28,7 @@
 
         body {
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            position: relative;
             margin: 0;
             background-color: #fafafa;
             color: #111;
@@ -119,6 +131,43 @@
             margin-right: 8px;
         }
 
+        .rule110-replay {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            border: 0;
+            border-radius: 0;
+            padding: 8px 14px;
+            background: #d4512c;
+            color: #fff;
+            font: inherit;
+            font-size: 13px;
+            font-weight: 650;
+            box-shadow: 0 6px 18px rgba(212, 81, 44, 0.22);
+            cursor: pointer;
+        }
+
+        .rule110-replay:hover {
+            background: #b63f1f;
+        }
+
+        .rule110-replay:focus-visible {
+            outline: 2px solid #111;
+            outline-offset: 2px;
+        }
+
+        .rule110-replay--desktop {
+            position: absolute;
+            top: var(--rule110-replay-top, -9999px);
+            left: var(--rule110-replay-left, -9999px);
+            z-index: 4;
+            transform: translateX(-100%);
+        }
+
+        .rule110-reveal-complete .rule110-replay--desktop {
+            display: inline-flex;
+        }
+
         #last-updated {
             position: fixed;
             bottom: 8px;
@@ -159,6 +208,10 @@
                 text-align: left;
                 padding: 0 18px 18px;
             }
+
+            .rule110-reveal-complete .rule110-replay--desktop {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -173,15 +226,14 @@
 
             <div class="bio">
                 <p>
-                    I am a student at Columbia University studying computer science and mathematics.
-                    My primary interest is machine learning and its applications, but I also enjoy exploring the theoretical underpinnings of computation.
-
+                    I am a student at Columbia University studying computer science and mathematics in the school of engineering (SEAS).
+                    </br><br>I'm especially interested in machine learning and its applications, though more generally I just like building interesting things in software and tackling challenging problems.
                 </p>
 
                 <p>
-                    This page includes a finite
-                    <a href="https://conwaylife.com/wiki/OCA:Rule_110">Rule 110</a>
-                    cellular automaton, rendered entirely with HTML and CSS (no javascript)!
+                    The pattern on this page is
+                    <a href="https://conwaylife.com/wiki/OCA:Rule_110">Rule 110</a>,
+                    a tiny Turing-complete cellular automaton, generated with SCSS and animated with pure CSS!
                 </p>
             </div>
 
@@ -203,10 +255,10 @@
                 <h2>next</h2>
 
                 <div class="entry">
-                    <div class="entry-title">Lenovo — AI Experiences Team</div>
+                    <div class="entry-title">Lenovo — AI Engineering Team</div>
                     <div class="date">June–August 2026</div>
                     <p>
-                        This summer, I will join Lenovo's <a href="https://www.lenovo.com/us/en/business-solutions/qira/"> Qira</a> team to build cross-device AI
+                        This summer, I will join Lenovo's <a href="https://www.lenovo.com/us/en/business-solutions/qira/">Qira</a> team to build cross-device AI
                         experiences across Windows and mobile platforms, with a focus on multimodal
                         interaction, context handoff, and reliable user-facing agent behavior.
                     </p>
@@ -294,7 +346,7 @@
                 <h2>elsewhere</h2>
 
                 <p>
-                    I am also interested in applied security, math competitions, and robotics. In my free time I can be found playing horror video games. 
+                    I am also interested in applied security, math competitions, and robotics.</br><br>In my free time I can be found playing horror video games or deep-diving into my OS stack (fedora, btw)
                 </p>
             </section>
         </main>
@@ -306,8 +358,10 @@
         </aside>
     </div>
 
+    <button class="rule110-replay rule110-replay--desktop" type="button" data-rule110-replay>Replay!</button>
+
     <div id="last-updated">
-        Last updated: May 21, 2026
+        Last updated: May 28, 2026
     </div>
 </body>
 </html>
