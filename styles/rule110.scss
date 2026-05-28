@@ -1,7 +1,7 @@
 @use "sass:list";
 
 $columns: 100;
-$rows: 420;
+$rows: 394;
 $cell-size: 6px;
 $tick: 38ms;
 $ink: #161616;
@@ -166,7 +166,7 @@ $seed-live-cells: 1 6 7 12 18 19 26 35 38 47 48 55 63 68 76 82;
     height: $rows * $cell-size;
     clip-path: inset(0 0 100% 0);
     transform: translateX(-50%);
-    animation: rule110-reveal ($rows * $tick) steps($rows, end) 360ms 1 forwards;
+    animation: rule110-reveal ($rows * $tick) steps($rows, end) calc(360ms - var(--rule110-elapsed, 0ms)) 1 forwards;
 }
 
 .rule110-wall__pattern::before {
@@ -185,6 +185,11 @@ $seed-live-cells: 1 6 7 12 18 19 26 35 38 47 48 55 63 68 76 82;
     to {
         clip-path: inset(0 0 0 0);
     }
+}
+
+.rule110-reveal-complete .rule110-wall__pattern {
+    animation: none;
+    clip-path: inset(0 0 0 0);
 }
 
 @media (prefers-reduced-motion: reduce) {
